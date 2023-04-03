@@ -1,6 +1,7 @@
 # Zabbix
 # Install Zabbix Server 6.0 on Ubuntu 22.04 (Jammy Jellyfish)
-By Still-not-found on April 3,2023
+By Still-not-found on April 3,2023  
+
 Zabbix is an open source, distributed monitoring system widely adopted in monitoring of Linux Infrastructures, Windows Systems, Network appliances and many applications. Zabbix is able to monitor numerous parameters of a network, health, and integrity of servers. Zabbix is used in small organisations with a few servers and for large companies with a multitude of servers.
 
 By using Zabbix’s flexible notification mechanism users can configure e-mail based, or SMS alerts for virtually any event as triggered. This allows a fast reaction to server problems. Zabbix has a good looking and excellent data visualisation and reporting based on the stored data, this is ideal for capacity planning. The web-based frontend of Zabbix is used to access reports and statistics, as well as all the configuration parameters without touching command line interface.
@@ -12,22 +13,23 @@ The key dependencies to running and managing Zabbix server are:
 * Apache or Nginx web service
 * PHP and extensions
 * MySQL/ MariaDB / PostgreSQL database server
+
 Our setup will use Apache, MariaDB and PHP on Ubuntu 22.04 Linux system. Follow the steps below to install and use Zabbix Server 6.0 on Ubuntu 22.04 (Jammy Jellyfish).
 
 # Step 1: Update Ubuntu system
 Start the process by updating and upgrading your Ubuntu system.
 
-$ sudo apt update && sudo apt upgrade -y
+      sudo apt update && sudo apt upgrade -y
 Once the system has been updated you can reboot if this is required.
 
-[ -f /var/run/reboot-required ] && sudo reboot -f
+      [ -f /var/run/reboot-required ] && sudo reboot -f
 # Step 2: Install Apache, MariaDB, PHP
 Install Apache Web server:
 
-$ sudo apt install apache2
+      $ sudo apt install apache2
 Also install MariaDB database server:
 
-$ sudo apt install mariadb-server mariadb-client
+      $ sudo apt install mariadb-server mariadb-client
 Install PHP and other extensions required:
 
 $ sudo apt install php php-{cgi,common,mbstring,net-socket,gd,xml-util,mysql,bcmath,imap,snmp}
