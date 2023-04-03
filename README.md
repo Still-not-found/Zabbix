@@ -48,7 +48,9 @@ First install wget:
 
     sudo apt install wget -y
 Download repository .deb package file:
-    wget https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-4%2Bubuntu22.04_all.deb
+
+   $ wget https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-4%2Bubuntu22.04_all.deb
+
 Install downloaded repository file:
 
     sudo dpkg -i zabbix-release_*ubuntu22.04_all.deb
