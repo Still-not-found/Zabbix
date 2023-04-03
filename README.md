@@ -26,14 +26,14 @@ Once the system has been updated you can reboot if this is required.
 # Step 2: Install Apache, MariaDB, PHP
 Install Apache Web server:
 
-      $ sudo apt install apache2
+       sudo apt install apache2
 Also install MariaDB database server:
 
-      $ sudo apt install mariadb-server mariadb-client
+       sudo apt install mariadb-server mariadb-client
 Install PHP and other extensions required:
 
-$ sudo apt install php php-{cgi,common,mbstring,net-socket,gd,xml-util,mysql,bcmath,imap,snmp}
-$ sudo apt install libapache2-mod-php
+    sudo apt install php php-{cgi,common,mbstring,net-socket,gd,xml-util,mysql,bcmath,imap,snmp}
+    sudo apt install libapache2-mod-php
 Confirm the version of PHP installed:
 
 $ php --version
@@ -41,17 +41,17 @@ PHP 8.1.2 (cli) (built: Aug  8 2022 07:28:23) (NTS)
 Copyright (c) The PHP Group
 Zend Engine v4.1.2, Copyright (c) Zend Technologies
     with Zend OPcache v8.1.2, Copyright (c), by Zend Technologies
-Step 3: Add Zabbix APT repositories
+# Step 3: Add Zabbix APT repositories
 Next we add official Zabbix repository to our Ubuntu 22.04 (Jammy Jellyfish) system. This repo contains the latest packages of Zabbix as opposed to other methods.
 
 First install wget:
 
-$ sudo apt install wget -y
+    sudo apt install wget -y
 Download repository .deb package file:
-$ wget https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-4%2Bubuntu22.04_all.deb
+    wget https://repo.zabbix.com/zabbix/6.0/ubuntu/pool/main/z/zabbix-release/zabbix-release_6.0-4%2Bubuntu22.04_all.deb
 Install downloaded repository file:
 
-$ sudo dpkg -i zabbix-release_*ubuntu22.04_all.deb
+    sudo dpkg -i zabbix-release_*ubuntu22.04_all.deb
 Selecting previously unselected package zabbix-release.
 (Reading database ... 237793 files and directories currently installed.)
 Preparing to unpack zabbix-release_6.0-4+ubuntu22.04_all.deb ...
@@ -61,22 +61,22 @@ Setting up zabbix-release (1:6.0-4+ubuntu22.04) ...
 # Step 4: Install Zabbix Server on Ubuntu 22.04 (Jammy Jellyfish)
 With the repository added and configured, Zabbix server packages can then be installed on Ubuntu 22.04.
 
-$ sudo apt update
-$ sudo apt install vim zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent
+    sudo apt update
+    sudo apt install vim zabbix-server-mysql zabbix-frontend-php zabbix-apache-conf zabbix-sql-scripts zabbix-agent
 Enable PHP CGI:
 
-$ sudo  a2enconf php8.*-cgi
+    sudo  a2enconf php8.*-cgi
 Ensure you set correct timezone for your server.
 
-$ sudo vim /etc/php/*/apache2/php.ini 
+    sudo vim /etc/php/*/apache2/php.ini 
 ; http://php.net/date.timezone
 date.timezone = "Africa/Nairobi"
 Restart apache2 web server after making the changes:
 
-$ sudo systemctl restart apache2
+    sudo systemctl restart apache2
 Confirm web server service is running:
 
-$ systemctl status apache2
+    systemctl status apache2
 ● apache2.service - The Apache HTTP Server
      Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor preset: enabled)
      Active: active (running) since Wed 2022-09-28 08:35:48 EAT; 12s ago
@@ -100,7 +100,7 @@ Sep 28 08:35:48 jammy systemd[1]: Started The Apache HTTP Server.
 # Step 5: Configure Zabbix server on Ubuntu 22.04
 Login to MariaDB shell as root database user.
 
-$ sudo mysql -u root
+    sudo mysql -u root
 Welcome to the MariaDB monitor.  Commands end with ; or \g.
 Your MariaDB connection id is 31
 Server version: 10.6.7-MariaDB-2ubuntu1.1 Ubuntu 22.04
@@ -112,21 +112,21 @@ Type 'help;' or '\h' for help. Type '\c' to clear the current input statement.
 MariaDB [(none)]>
 Create a database and user for Zabbix:
 
-$ CREATE DATABASE zabbix character set utf8 collate utf8_bin;;
-$ GRANT ALL PRIVILEGES ON zabbix.* TO zabbix@'localhost' IDENTIFIED BY 'StrongDBPassw0rd';
-$ FLUSH PRIVILEGES; 
-$ QUIT 
+    CREATE DATABASE zabbix character set utf8 collate utf8_bin;;
+    GRANT ALL PRIVILEGES ON zabbix.* TO zabbix@'localhost' IDENTIFIED BY 'StrongDBPassw0rd';
+    FLUSH PRIVILEGES; 
+    QUIT 
 Import database data using the command:
 
-$ sudo zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql -uzabbix -p'StrongDBPassw0rd' zabbix
+    sudo zcat /usr/share/zabbix-sql-scripts/mysql/server.sql.gz | mysql -uzabbix -p'StrongDBPassw0rd' zabbix
 Edit server configuration file and set database credentials:
 
-$ sudo vim /etc/zabbix/zabbix_server.conf
+    sudo vim /etc/zabbix/zabbix_server.conf
 DBName=zabbix
 DBUser=zabbix
 DBPassword=StrongDBPassw0rd
 Restart Zabbix services:
 
-$ sudo systemctl restart zabbix-server zabbix-agent apache2
+    sudo systemctl restart zabbix-server zabbix-agent apache2
 Also set the services to start at system boot.
 
